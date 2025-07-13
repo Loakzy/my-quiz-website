@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Decimal Conversion Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 10px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .question {
+      margin-bottom: 15px;
+    }
+    .correct {
+      color: green;
+    }
+    .incorrect {
+      color: red;
+    }
+    #score {
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Decimal Conversion Quiz</h1>
+  <form id="quizForm">
+    <div class="question">
+      1) 325 / 10 = <input type="text" name="q1" />
+    </div>
+    <div class="question">
+      2) 478 / 100 = <input type="text" name="q2" />
+    </div>
+    <div class="question">
+      3) 562 / 1000 = <input type="text" name="q3" />
+    </div>
+    <div class="question">
+      4) 85 / 10 = <input type="text" name="q4" />
+    </div>
+    <div class="question">
+      5) 907 / 100 = <input type="text" name="q5" />
+    </div>
+    <button type="button" onclick="checkAnswers()">Submit</button>
+  </form>
+  <div id="results"></div>
+
+  <script>
+    function checkAnswers() {
+      const answers = [32.5, 4.78, 0.562, 8.5, 9.07];
+      let score = 0;
+      let results = "";
+
+      for (let i = 0; i < answers.length; i++) {
+        const userAnswer = parseFloat(document.forms["quizForm"]["q" + (i+1)].value);
+        if (Math.abs(userAnswer - answers[i]) < 0.0001) { // allow tiny float differences
+          results += `<p class="correct">Question ${i+1}: Correct ✅</p>`;
+          score++;
+        } else {
+          results += `<p class="incorrect">Question ${i+1}: Incorrect ❌. Correct answer: ${answers[i]}</p>`;
+        }
+      }
+
+      results += `<p id="score">Your Score: ${score} / ${answers.length}</p>`;
+      document.getElementById("results").innerHTML = results;
+    }
+  </script>
+</body>
+</html>
